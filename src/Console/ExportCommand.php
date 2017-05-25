@@ -1,10 +1,13 @@
-<?php namespace Barryvdh\TranslationManager\Console;
+<?php 
 
-use Barryvdh\TranslationManager\Manager;
+namespace HighSolutions\TranslationManager\Console;
+
+use HighSolutions\TranslationManager\Manager;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ExportCommand extends Command {
+class ExportCommand extends Command 
+{
 
     /**
      * The console command name.
@@ -20,7 +23,7 @@ class ExportCommand extends Command {
      */
     protected $description = 'Export translations to PHP files';
 
-    /** @var \Barryvdh\TranslationManager\Manager  */
+    /** @var \HighSolutions\TranslationManager\Manager  */
     protected $manager;
 
     public function __construct(Manager $manager)
@@ -55,8 +58,5 @@ class ExportCommand extends Command {
             array('group', InputArgument::REQUIRED, 'The group to export (`*` for all).'),
         );
     }
-
-
-
 
 }

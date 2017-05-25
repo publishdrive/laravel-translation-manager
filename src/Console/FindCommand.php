@@ -1,10 +1,13 @@
-<?php namespace Barryvdh\TranslationManager\Console;
+<?php 
 
-use Barryvdh\TranslationManager\Manager;
+namespace HighSolutions\TranslationManager\Console;
+
+use HighSolutions\TranslationManager\Manager;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
-class FindCommand extends Command {
+class FindCommand extends Command 
+{
 
     /**
      * The console command name.
@@ -20,7 +23,7 @@ class FindCommand extends Command {
      */
     protected $description = 'Find translations in php/twig files';
 
-    /** @var  \Barryvdh\TranslationManager\Manager  */
+    /** @var  \HighSolutions\TranslationManager\Manager  */
     protected $manager;
 
     public function __construct(Manager $manager)
@@ -28,7 +31,6 @@ class FindCommand extends Command {
         $this->manager = $manager;
         parent::__construct();
     }
-
 
     /**
      * Execute the console command.
@@ -41,6 +43,5 @@ class FindCommand extends Command {
         $this->info('Done importing, processed '.$counter. ' items!');
 
     }
-
 
 }

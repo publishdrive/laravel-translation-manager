@@ -1,10 +1,13 @@
-<?php namespace Barryvdh\TranslationManager\Console;
+<?php 
 
-use Barryvdh\TranslationManager\Manager;
+namespace HighSolutions\TranslationManager\Console;
+
+use HighSolutions\TranslationManager\Manager;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
-class ImportCommand extends Command {
+class ImportCommand extends Command 
+{
 
     /**
      * The console command name.
@@ -20,7 +23,7 @@ class ImportCommand extends Command {
      */
     protected $description = 'Import translations from the PHP sources';
 
-    /** @var  \Barryvdh\TranslationManager\Manager  */
+    /** @var  \HighSolutions\TranslationManager\Manager  */
     protected $manager;
 
     public function __construct(Manager $manager)
@@ -28,7 +31,6 @@ class ImportCommand extends Command {
         $this->manager = $manager;
         parent::__construct();
     }
-
 
     /**
      * Execute the console command.
@@ -54,6 +56,5 @@ class ImportCommand extends Command {
             array('replace', "R", InputOption::VALUE_NONE, 'Replace existing keys'),
         );
     }
-
 
 }

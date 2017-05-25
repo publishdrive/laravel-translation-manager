@@ -1,12 +1,16 @@
 {
-    "name": "barryvdh/laravel-translation-manager",
+    "name": "highsolutions/laravel-translation-manager",
     "description": "Manage Laravel Translations",
-    "keywords": ["laravel", "translations", "translator"],
+    "keywords": ["laravel", "translations", "translator", "language"],
     "license": "MIT",
     "authors": [
         {
             "name": "Barry vd. Heuvel",
             "email": "barryvdh@gmail.com"
+        },        
+        {
+            "name": "HighSolutions",
+            "email": "adam@highsolutions.pl"
         }
     ],
     "require": {
@@ -17,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Barryvdh\\TranslationManager\\": "src/"
+            "HighSolutions\\TranslationManager\\": "src/"
         }
     },
     "extra": {

@@ -1,9 +1,12 @@
-<?php namespace Barryvdh\TranslationManager\Console;
+<?php 
 
-use Barryvdh\TranslationManager\Manager;
+namespace HighSolutions\TranslationManager\Console;
+
+use HighSolutions\TranslationManager\Manager;
 use Illuminate\Console\Command;
 
-class CleanCommand extends Command {
+class CleanCommand extends Command 
+{
 
     /**
      * The console command name.
@@ -19,7 +22,7 @@ class CleanCommand extends Command {
      */
     protected $description = 'Clean empty translations';
 
-    /** @var \Barryvdh\TranslationManager\Manager  */
+    /** @var \HighSolutions\TranslationManager\Manager  */
     protected $manager;
 
     public function __construct(Manager $manager)

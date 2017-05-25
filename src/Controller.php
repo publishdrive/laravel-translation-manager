@@ -1,13 +1,16 @@
-<?php namespace Barryvdh\TranslationManager;
+<?php 
+
+namespace HighSolutions\TranslationManager;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Barryvdh\TranslationManager\Models\Translation;
+use HighSolutions\TranslationManager\Models\Translation;
 use Illuminate\Support\Collection;
 
 class Controller extends BaseController
 {
-    /** @var \Barryvdh\TranslationManager\Manager  */
+
+    /** @var \HighSolutions\TranslationManager\Manager  */
     protected $manager;
 
     public function __construct(Manager $manager)
@@ -131,4 +134,5 @@ class Controller extends BaseController
 
         return ['status' => 'ok'];
     }
+    
 }

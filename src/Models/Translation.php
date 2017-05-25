@@ -1,4 +1,6 @@
-<?php namespace Barryvdh\TranslationManager\Models;
+<?php 
+
+namespace HighSolutions\TranslationManager\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
@@ -21,14 +23,15 @@ class Translation extends Model{
     const STATUS_CHANGED = 1;
 
     protected $table = 'ltm_translations';
-    protected $guarded = array('id', 'created_at', 'updated_at');
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function scopeOfTranslatedGroup($query, $group)
     {
         return $query->where('group', $group)->whereNotNull('value');
     }
 
-    public function scopeOrderByGroupKeys($query, $ordered) {
+    public function scopeOrderByGroupKeys($query, $ordered) 
+    {
         if ($ordered) {
             $query->orderBy('group')->orderBy('key');
         }
@@ -40,7 +43,7 @@ class Translation extends Model{
     {
         $select = '';
 
-        switch (DB::getDriverName()){
+        switch (DB::getDriverName()) {
             case 'mysql':
                 $select = 'DISTINCT `group`';
                 break;

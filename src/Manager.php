@@ -1,8 +1,10 @@
-<?php namespace Barryvdh\TranslationManager;
+<?php 
+
+namespace HighSolutions\TranslationManager;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Events\Dispatcher;
-use Barryvdh\TranslationManager\Models\Translation;
+use HighSolutions\TranslationManager\Models\Translation;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Finder\Finder;
