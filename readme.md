@@ -249,6 +249,16 @@ In your layout view add this scripts and style (see Layout customization section
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 ```
 
+And now you are able to use `transEditable` helper and when live editing is active (checked through `isLiveTranslationEnabled`), user is able to click on text, popup will show and text can be changed. Saving changes will cause saving to the database and exporting this text to translation file. If live editing is not active, user will see standard text.
+
+You can use this helper like this:
+
+```php
+	<div class="text">{!! transEditable('auth.failed') !!}</div>
+```
+
+Do not use this inside of non-clickable elements (title attribute, alt attributes etc.). To launch popup inside link, click on border, not text.
+
 Changelog
 ---------
 
