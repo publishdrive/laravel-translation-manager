@@ -3,7 +3,7 @@ Laravel Translation Manager
 
 Easy management of translations in Laravel.
 
-![Laravel-Translation-Manager by HighSolutions](https://raw.githubusercontent.com/highsolutions/laravel-translations-manager/master/intro.jpg)
+![Laravel-Translation-Manager by HighSolutions](https://raw.githubusercontent.com/highsolutions/laravel-translation-manager/master/intro.jpg)
 
 Installation
 ------------
