@@ -72,7 +72,7 @@ class Controller extends BaseController
                 'msg' => 'File is excluded',
             ];
 
-        $this->service->edit($request->input('name'), $request->input('value'));
+        $this->service->edit($group, $request->input('name'), $request->input('value'));
 
         return [
             'success' => true,

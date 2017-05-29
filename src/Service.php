@@ -170,7 +170,7 @@ class Service
         }
     }
 
-    public function edit($name, $value)
+    public function edit($group, $name, $value)
     {
 		list($locale, $key) = explode('|', $name, 2);
         $translation = Translation::firstOrNew([
