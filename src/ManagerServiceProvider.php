@@ -2,6 +2,11 @@
 
 namespace HighSolutions\TranslationManager;
 
+use HighSolutions\TranslationManager\Console\CleanCommand;
+use HighSolutions\TranslationManager\Console\ExportCommand;
+use HighSolutions\TranslationManager\Console\FindCommand;
+use HighSolutions\TranslationManager\Console\ImportCommand;
+use HighSolutions\TranslationManager\Console\ResetCommand;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,48 +18,62 @@ class ManagerServiceProvider extends ServiceProvider {
 	 */
 	protected $defer = false;
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-        // Register the config publish path
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->_basicRegister();
+
+        $this->_commandsRegister();        
+
+        $this->_managerRegister();    
+    }
+
+    private function _basicRegister() 
+    {
         $configPath = __DIR__ . '/../config/translation-manager.php';
         $this->mergeConfigFrom($configPath, 'translation-manager');
-        $this->publishes([$configPath => config_path('translation-manager.php')], 'config');
+        $this->publishes([
+            $configPath => config_path('translation-manager.php')
+        ], 'config');
+    }
 
-        $this->app->singleton('translation-manager', function ($app) {
-            $manager = $app->make('HighSolutions\TranslationManager\Manager');
-            return $manager;
+    private function _commandsRegister() 
+    {
+        foreach($this->commandsList() as $name => $class) {
+            $this->initCommand($name, $class);
+        }
+    }
+
+    protected function commandsList()
+    {
+        return [
+            'reset' => ResetCommand::class,
+            'import' => ImportCommand::class,
+            'find' => FindCommand::class,
+            'export' => ExportCommand::class,
+            'clean' => CleanCommand::class,
+        ];
+    }
+
+    private function initCommand($name, $class)
+    {
+        $this->app->singleton("command.translation-manager.{$name}", function($app) use ($class) {
+            return new $class($app['translation-manager']);
         });
 
-        $this->app->singleton('command.translation-manager.reset', function ($app) {
-            return new Console\ResetCommand($app['translation-manager']);
-        });
-        $this->commands('command.translation-manager.reset');
+        $this->commands("command.translation-manager.{$name}");
+    }
 
-        $this->app->singleton('command.translation-manager.import', function ($app) {
-            return new Console\ImportCommand($app['translation-manager']);
+    private function _managerRegister() 
+    {
+        $this->app->singleton('translation-manager', function($app) {
+            return $app->make(Manager::class);
         });
-        $this->commands('command.translation-manager.import');
-
-        $this->app->singleton('command.translation-manager.find', function ($app) {
-            return new Console\FindCommand($app['translation-manager']);
-        });
-        $this->commands('command.translation-manager.find');
-
-        $this->app->singleton('command.translation-manager.export', function ($app) {
-            return new Console\ExportCommand($app['translation-manager']);
-        });
-        $this->commands('command.translation-manager.export');
-
-        $this->app->singleton('command.translation-manager.clean', function ($app) {
-            return new Console\CleanCommand($app['translation-manager']);
-        });
-        $this->commands('command.translation-manager.clean');
-	}
+    }
 
     /**
 	 * Bootstrap the application events.
@@ -64,32 +83,60 @@ class ManagerServiceProvider extends ServiceProvider {
 	 */
 	public function boot(Router $router)
 	{
+        $this->loadViews();
+        $this->loadMigrations();
+        $this->loadTranslations();
+        $this->loadRoutes($router);
+	}
+
+    protected function loadViews()
+    {
         $viewPath = __DIR__.'/../resources/views';
         $this->loadViewsFrom($viewPath, 'translation-manager');
         $this->publishes([
-            $viewPath => base_path('resources/views/vendor/translation-manager'),
+            $viewPath => resource_path('assets/views/vendor/translation-manager'),
         ], 'views');
+    }
 
+    protected function loadMigrations()
+    {
         $migrationPath = __DIR__.'/../database/migrations';
         $this->publishes([
             $migrationPath => base_path('database/migrations'),
         ], 'migrations');
+    }
 
-        $config = $this->app['config']->get('translation-manager.route', []);
-        $config['namespace'] = 'Barryvdh\TranslationManager';
+    protected function loadTranslations()
+    {
+        $translationPath = __DIR__.'/../resources/lang';
+        $this->loadTranslationsFrom($translationPath, 'translation-manager');
+        
+        $this->publishes([
+            $translationPath => resource_path('lang/vendor/translation-manager'),
+        ], 'translations');
+    }
 
-        $router->group($config, function($router)
-        {
-            $router->get('view/{group?}', 'Controller@getView')->where('group', '.*');
-            $router->get('/{group?}', 'Controller@getIndex')->where('group', '.*');
-            $router->post('/add/{group}', 'Controller@postAdd')->where('group', '.*');
-            $router->post('/edit/{group}', 'Controller@postEdit')->where('group', '.*');
-            $router->post('/delete/{group}/{key}', 'Controller@postDelete')->where('group', '.*');
-            $router->post('/import', 'Controller@postImport');
-            $router->post('/find', 'Controller@postFind');
-            $router->post('/publish/{group}', 'Controller@postPublish')->where('group', '.*');
+    public function loadRoutes($router) {        
+        $config = $this->routeConfig();
+
+        $router->group($config, function($router) {
+            $router->get('/', 'Controller@getIndex')->name('translation-manager.index');
+            $router->get('/view/{group?}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@getView')->name('translation-manager.view');
+            $router->post('/add/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postAdd')->name('translation-manager.add');
+            $router->post('/edit/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postEdit')->name('translation-manager.edit');
+            $router->post('/delete/{key}/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postDelete')->name('translation-manager.delete');
+            $router->post('/publish/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postPublish')->name('translation-manager.publish');
+            $router->post('/import', 'Controller@postImport')->name('translation-manager.import');
+            $router->post('/clean', 'Controller@postClean')->name('translation-manager.clean');
+            $router->post('/find', 'Controller@postFind')->name('translation-manager.find');
+
+            $router->post('custom-update', 'Controller@postEditAndExport')->name('translation-manager.update');
         });
-	}
+    }
+
+    private function routeConfig() {
+        return $this->app['config']->get('translation-manager.route', []);
+    }
 
 	/**
 	 * Get the services provided by the provider.
@@ -98,13 +145,14 @@ class ManagerServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('translation-manager',
+		return [
+            'translation-manager',
             'command.translation-manager.reset',
             'command.translation-manager.import',
             'command.translation-manager.find',
             'command.translation-manager.export',
-            'command.translation-manager.clean'
-        );
+            'command.translation-manager.clean',
+        ];
 	}
 
 }

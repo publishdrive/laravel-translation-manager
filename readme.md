@@ -1,8 +1,78 @@
 Laravel Translation Manager
 =============================
 
-This is a package to manage Laravel translation files.
-It does not replace the Translation system, only import/export the php files to a database and make them editable through a webinterface.
+Easy management of translations in Laravel.
+
+![Laravel-Translation-Manager by HighSolutions](https://raw.githubusercontent.com/highsolutions/laravel-translations-manager/master/intro.jpg)
+
+Installation
+------------
+
+Add the following line to the `require` section of your Laravel webapp's `composer.json` file:
+
+```javascript
+    "require": {
+        "highsolutions/laravel-translation-manager": "0.3.x"
+    }
+```
+
+Run `composer update` to install the package.
+
+Then, update `config/app.php` by adding an entry for the service provider:
+
+```php
+'providers' => [
+    // ...
+    HighSolutions\TranslationManager\ManagerServiceProvider::class,
+];
+```
+
+Next, publish all package resources:
+
+```bash
+    php artisan vendor:publish --provider="HighSolutions\TranslationManager\ManagerServiceProvider"
+```
+
+This will add to your project:
+
+    - migration - database table for storing translations
+    - configuration - package configurations
+    - views - configurable views for translation management
+    - translations - translations for webinterface
+
+Remember to launch migration: 
+
+```bash
+    php artisan migrate
+```
+
+Moreover, you have to disable `ONLY_FULL_GROUP_ID` strict mode for database connection. There are two ways:
+
+```php
+    'mysql' => [
+        // ...
+        'strict' => false,
+    ],
+```
+
+or
+
+```php
+    'mysql' => [
+        // ...
+        'modes' => [
+            'NO_ZERO_DATE',
+            // you can specify what you want, without ONLY_FULL_GROUP_ID
+        ],
+    ],
+```
+
+Workflow
+------------
+
+This package doesn't replace the Translation system, only import/export PHP files to a database and make them editable in browser.
+Package contains helper for live editing content on website.
+
 The workflow would be:
 
     - Import translations: Read all translation files and save them in the database
@@ -11,61 +81,27 @@ The workflow would be:
     - Translate all keys through the webinterface
     - Export: Write all translations back to the translation files.
 
-This way, translations can be saved in git history and no overhead is introduced in production.
-
-![Screenshot](http://i.imgur.com/4th2krf.png)
-
-## Installation
-
-Require this package in your composer.json and run composer update (or run `composer require highsolutions/laravel-translation-manager` directly):
-
-```javascript
-    "highsolutions/laravel-translation-manager": "0.3.x"
-```
-
-After updating composer, add the ServiceProvider to the providers array in config/app.php
-
-```php
-    // ...
-    HighSolutions\TranslationManager\ManagerServiceProvider::class,
-```
-
-You need to run the migrations for this package.
-
-```bash
-    php artisan vendor:publish --provider="HighSolutions\TranslationManager\ManagerServiceProvider" --tag=migrations
-    php artisan migrate
-```
-
-You need to publish the config file for this package. This will add the file `config/translation-manager.php`, where you can configure this package.
-
-```bash
-    php artisan vendor:publish --provider="HighSolutions\TranslationManager\ManagerServiceProvider" --tag=config
-```
-
-In order to edit the default template, the views must be published as well. The views will then be placed in `resources/views/vendor/translation-manager`.
-
-```bash
-    php artisan vendor:publish --provider="HighSolutions\TranslationManager\ManagerServiceProvider" --tag=views
-```
-
-Routes are added in the ServiceProvider. You can set the group parameters for the routes in the configuration.
-You can change the prefix or filter/middleware for the routes. If you want full customisation, you can extend the ServiceProvider and override the `map()` function.
-
-This example will make the translation manager available at `http://yourdomain.com/translations`
-
 Usage
 ------
 
-### Web interface
+You can access package in `http://yourdomain.com/translations` in default configuration. You can change as you pleased.
 
-When you have imported your translation (via buttons or command), you can view them in the webinterface (on the url you defined with the controller).
-You can click on a translation and an edit field will popup. Just click save and it is saved :)
-When a translation is not yet created in a different locale, you can also just edit it to create it.
+Configuration
+-------------
 
-Using the buttons on the webinterface, you can import/export the translations. For publishing translations, make sure your application can write to the language directory.
+| Setting name             | Description                                                             | Default value                                                                                                        |
+|--------------------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| route                    | Route declaration (prefix, namespace, middlewares etc.)                 | [,'prefix' => 'translations', 'namespace' => 'HighSolutions\TranslationManager', 'middleware' => [,'web', 'auth',],] |
+| delete_enabled           | Enable deletion of translations                                         | true                                                                                                                 |
+| exclude_groups           | Exclude specific file groups (like validation, pagination, routes etc.) | []                                                                                                                   |
+| sort_keys                | Export translations with keys output alphabetically.                    | false                                                                                                                |
+| highlight_locale_marked  | Highlight lines with locale marked as not translated.                   | false                                                                                                                |
+| live_translation_enabled | Enable live translation of content.                                     | false                                                                                                                |
+| permissions              | Define whow and when can edit translations.                             | function () {return env('APP_ENV') == 'local'; }                                                                     |
 
-You can also use the commands below.
+
+Commands
+---------
 
 ### Import command
 
@@ -85,27 +121,28 @@ The found keys will be added to the database, so they can be easily translated.
 This can be done through the webinterface, or via an Artisan command.
 
 ```bash
-    $ php artisan translations:find
+    php artisan translations:find
 ```
 
 ### Export command
 
-The export command will write the contents of the database back to app/lang php files.
+The export command will write the contents of the database back to resources/lang php files.
 This will overwrite existing translations and remove all comments, so make sure to backup your data before using.
 Supply the group name to define which groups you want to publish.
+If you want to export all groups, provide `*` as name of group.
 
 ```bash
-    $ php artisan translations:export <group>
+    php artisan translations:export <group>
 ```
 
-For example, `php artisan translations:export reminders` when you have 2 locales (en/nl), will write to `app/lang/en/reminders.php` and `app/lang/nl/reminders.php`
+For example, `php artisan translations:export reminders` when you have 2 locales (en/pl), will write to `resources/lang/en/reminders.php` and `resources/lang/pl/reminders.php`
 
 ### Clean command
 
 The clean command will search for all translation that are NULL and delete them, so your interface is a bit cleaner. Note: empty translations are never exported.
 
 ```bash
-    $ php artisan translations:clean
+    php artisan translations:clean
 ```
 
 ### Reset command
@@ -113,7 +150,7 @@ The clean command will search for all translation that are NULL and delete them,
 The reset command simply clears all translation in the database, so you can start fresh (by a new import). Make sure to export your work if needed before doing this.
 
 ```bash
-    $ php artisan translations:reset
+    php artisan translations:reset
 ```
 
 ### Detect missing translations
@@ -131,12 +168,98 @@ This will extend the Translator and will create a new database entry, whenever a
 This way it shows up in the webinterface and can be edited and later exported.
 You shouldn't use this in production, just in production to translate your views, then just switch back.
 
+Live editing
+---------
+
+When you have translations in database, you can use `transEditable` method instead of `trans` whenever it's suitable. To do this, you have to make few steps:
+
+Update `config/app.php` by adding an entry for the service provider (another one):
+
+```php
+'providers' => [
+    // ...
+    HighSolutions\TranslationManager\TranslationServiceProvider::class,
+];
+```
+
+Add these two methods to `app\helpers.php` file.
+
+```php
+if (!function_exists('transEditable')) {
+    /**
+     * Translate the given message and wraps it in .editable container to allow editing
+     *
+     * @param  string  $id
+     * @param  array   $parameters
+     * @param  string  $domain
+     * @param  string  $locale
+     * @return \Symfony\Component\Translation\TranslatorInterface|string
+     */
+    function transEditable($id = null, $parameters = [], $domain = 'messages', $locale = null) {
+        return app('translator')->transEditable($id, $parameters, $locale);
+    }
+}
+
+if (!function_exists('isLiveTranslationEnabled')) {
+    /**
+     * Return true if live translation enabled
+     *
+     * @return bool
+     */
+    function isLiveTranslationEnabled() {
+        return Request::cookie('live-translation-enabled') || config('translation-manager.live_translation_enabled');
+    }
+}
+```
+
+In your layout view add this scripts and style (see Layout customization section):
+
+```html
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <style>
+        .editable-click {
+            border-bottom-color: red;
+            cursor: pointer;
+        }
+
+        .editableform .control-group {
+            display: block;
+        }
+
+        .editable-input {
+            display: block;
+        }
+
+        .editable-input > textarea {
+            width: 100% !important;
+        }
+
+        .editable-buttons {
+            margin: 10px 0 0;
+            text-align: right;
+            width: 100%;
+        }
+
+        .editable-buttons .editable-submit {
+            float: right;
+            margin-left: 10px;
+        }
+    </style>
+    // ...
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+```
+
 Changelog
 ---------
 
 0.3.0
 
-* TODO
+* Support for subdirectories
+* Support for array translations
+* New design
+* Permission management
+* Translations for view
+* Live editing
 
 0.2.0
 
@@ -145,7 +268,9 @@ Changelog
 Roadmap
 -------
 
-* TODO
+* Duplicate translations of one locale to another with locale suffix.
+* Detection of incorrect files.
+* Support vendor translations files.
 * Unit tests!
 
 Credits

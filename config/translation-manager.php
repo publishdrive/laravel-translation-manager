@@ -12,6 +12,7 @@ return array(
     */
     'route' => [
         'prefix' => 'translations',
+        'namespace' => 'HighSolutions\TranslationManager',
         'middleware' => [
 	        'web',
 	        'auth',
@@ -43,5 +44,27 @@ return array(
 	 * Export translations with keys output alphabetically.
 	 */
 	'sort_keys ' => false,
+
+	/**
+	 * Highlight lines with locale marked (e.g. EN at the end of text)
+	 */
+	'highlight_locale_marked' => false,
+
+	/**
+	 * Enable live translation of content.
+	 */
+	'live_translation_enabled' => false,
+
+	/**
+	 * Define who and when can manage module.
+	 * 
+	 * @return bool
+	 */
+	'permissions' => function () {
+		if(env('APP_ENV') == 'local')
+            return true;
+
+        return false;
+	},
 
 );
