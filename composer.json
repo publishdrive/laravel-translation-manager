@@ -30,7 +30,7 @@
         "laravel": {
             "providers": [
                 "HighSolutions\\TranslationManager\\ManagerServiceProvider",
-                "HighSolutions\\TranslationManager\\TranslationServiceProvider",
+                "HighSolutions\\TranslationManager\\TranslationServiceProvider"
             ]            
         }
     },
