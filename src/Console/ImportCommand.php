@@ -37,7 +37,7 @@ class ImportCommand extends Command
      *
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $replace = $this->option('replace');
         $counter = $this->manager->importTranslations($replace);
