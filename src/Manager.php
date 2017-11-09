@@ -59,6 +59,7 @@ class Manager
                 if ($subLangPath != $langPath) {
                     $group = $subLangPath . "/" . $group;
                 }
+                $group = str_replace('\\', '/', $group);
 
                 $translations = \Lang::getLoader()->load($locale, $group);
                 if (!$translations || !is_array($translations))
