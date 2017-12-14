@@ -12,7 +12,7 @@ Add the following line to the `require` section of your Laravel webapp's `compos
 
 ```javascript
     "require": {
-        "highsolutions/laravel-translation-manager": "0.3.x"
+        "highsolutions/laravel-translation-manager": "0.4.x"
     }
 ```
 
