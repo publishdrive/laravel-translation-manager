@@ -78,6 +78,7 @@ The workflow would be:
     - Import translations: Read all translation files and save them in the database
     - Find all translations in php/twig sources
     - Optionally: Listen to missing translation with the custom Translator
+    - Optionally: Mark not-translated records as not-translated (suffix command)
     - Translate all keys through the webinterface
     - Export: Write all translations back to the translation files.
 
@@ -152,6 +153,22 @@ The reset command simply clears all translation in the database, so you can star
 
 ```bash
     php artisan translations:reset
+```
+
+### Clone command
+
+The clone command copy directory of basic language (langFrom parameter) and saves as new language (langTo parameter). After this operation you will need to launch import command.
+
+```bash
+    php artisan translations:clone langFrom langTo
+```
+
+### Suffix command
+
+The suffix command analyzes all translations from new locale (langNew parameter) and if the value is the same as in original language (langOriginal parameter) then adds suffix to the end of value of new locale translations to mark that this translation needs to be translated. The suffix is locale code (e.g. EN) upper-cased.
+
+```bash
+    php artisan translations:sufix langOriginal langNew
 ```
 
 ### Detect missing translations
@@ -262,6 +279,11 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 
 Changelog
 ---------
+
+0.4.0
+
+* New commands: clone and suffix
+* Improve export command
 
 0.3.7
 

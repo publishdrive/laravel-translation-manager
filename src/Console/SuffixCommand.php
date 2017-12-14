@@ -4,9 +4,8 @@ namespace HighSolutions\TranslationManager\Console;
 
 use HighSolutions\TranslationManager\Manager;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
-class ExportCommand extends Command 
+class SuffixCommand extends Command 
 {
 
     /**
@@ -14,14 +13,14 @@ class ExportCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'translations:export {group : The group to export (`*` for all)}';
+    protected $signature = 'translations:suffix {basic : basic language name} {new : new language}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Export translations to PHP files';
+    protected $description = 'Add locale suffix to all translations that are the same as basic one.';
 
     /** @var \HighSolutions\TranslationManager\Manager  */
     protected $manager;
@@ -39,12 +38,8 @@ class ExportCommand extends Command
      */
     public function handle()
     {
-        $group = $this->argument('group');
-
-        $this->manager->exportTranslations($group);
-
-        $this->info("Done writing language files for " . (($group == '*') ? 'ALL groups' : $group . " group") );
-
+        $count = $this->manager->suffixTranslations($this->argument('basic'), $this->argument('new'));
+        $this->info("Done suffixing translations for {$count} records.");
     }
 
 }

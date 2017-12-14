@@ -3,10 +3,12 @@
 namespace HighSolutions\TranslationManager;
 
 use HighSolutions\TranslationManager\Console\CleanCommand;
+use HighSolutions\TranslationManager\Console\CloneCommand;
 use HighSolutions\TranslationManager\Console\ExportCommand;
 use HighSolutions\TranslationManager\Console\FindCommand;
 use HighSolutions\TranslationManager\Console\ImportCommand;
 use HighSolutions\TranslationManager\Console\ResetCommand;
+use HighSolutions\TranslationManager\Console\SuffixCommand;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
@@ -56,6 +58,8 @@ class ManagerServiceProvider extends ServiceProvider {
             'find' => FindCommand::class,
             'export' => ExportCommand::class,
             'clean' => CleanCommand::class,
+            'clone' => CloneCommand::class,
+            'suffix' => SuffixCommand::class,
         ];
     }
 
@@ -152,6 +156,8 @@ class ManagerServiceProvider extends ServiceProvider {
             'command.translation-manager.find',
             'command.translation-manager.export',
             'command.translation-manager.clean',
+            'command.translation-manager.clone',
+            'command.translation-manager.suffix',
         ];
 	}
 
