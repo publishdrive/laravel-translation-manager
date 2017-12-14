@@ -45,7 +45,7 @@ class Manager
         $counter = 0;
         foreach($this->files->directories($this->app['path.lang']) as $langPath) {
             $locale = basename($langPath);
-            if ($locale === 'vendor')
+            if(in_array($locale, $this->config['exclude_langs']))
                 continue;
 
             foreach($this->files->allfiles($langPath) as $file) {

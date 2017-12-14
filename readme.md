@@ -94,6 +94,7 @@ Configuration
 | route                    | Route declaration (prefix, namespace, middlewares etc.)                 | [,'prefix' => 'translations', 'namespace' => 'HighSolutions\TranslationManager', 'middleware' => [,'web', 'auth',],] |
 | delete_enabled           | Enable deletion of translations                                         | true                                                                                                                 |
 | exclude_groups           | Exclude specific file groups (like validation, pagination, routes etc.) | []                                                                                                                   |
+| exclude_langs            | Exclude specific langs and directories (like vendor and en, etc.) | []                                                                                                                   |
 | sort_keys                | Export translations with keys output alphabetically.                    | false                                                                                                                |
 | highlight_locale_marked  | Highlight lines with locale marked as not translated.                   | false                                                                                                                |
 | live_translation_enabled | Enable live translation of content.                                     | false                                                                                                                |
@@ -261,6 +262,14 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 
 Changelog
 ---------
+
+0.3.7
+
+* New configuration option to exclude langs
+
+0.3.6
+
+* Support auto-discovery and Laravel 5.5
 
 0.3.0
 
