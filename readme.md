@@ -96,6 +96,7 @@ Configuration
 | delete_enabled           | Enable deletion of translations                                         | true                                                                                                                 |
 | exclude_groups           | Exclude specific file groups (like validation, pagination, routes etc.) | []                                                                                                                   |
 | exclude_langs            | Exclude specific langs and directories (like vendor and en, etc.) | []                                                                                                                   |
+| basic_lang            | Basic language used by translator. | 'en'                                                  |
 | sort_keys                | Export translations with keys output alphabetically.                    | false                                                                                                                |
 | highlight_locale_marked  | Highlight lines with locale marked as not translated.                   | false                                                                                                                |
 | live_translation_enabled | Enable live translation of content.                                     | false                                                                                                                |

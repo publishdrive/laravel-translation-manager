@@ -74,13 +74,14 @@ class Translator extends LaravelTranslator
         if (!$locale) {
             $locale = \App::getLocale();
         }
-        $englishTranslation = parent::get($key, $replace, 'en', $fallback);
+        $basicLocale = config('translation-manager.basic_lang', 'en');
+        $basicTranslation = parent::get($key, $replace, $basicLocale, $fallback);
 
         /**
          * we need escaped versions in order to show them as title and value;
          * real translation is displayed unescaped
          */
-        $escapedEnglishTranslation = htmlspecialchars($englishTranslation, ENT_QUOTES, 'UTF-8', false);
+        $escapedBasicTranslation = htmlspecialchars($basicTranslation, ENT_QUOTES, 'UTF-8', false);
         $escapedCurrentTranslation = htmlspecialchars($translation, ENT_QUOTES, 'UTF-8', false);
 
         return '<span class=\'editable locale-'. $locale . '\'' .
@@ -90,7 +91,7 @@ class Translator extends LaravelTranslator
             ' data-type=\'textarea\'' .
             ' data-pk=\'dummy\'' .
             ' data-value=\'' . $escapedCurrentTranslation . '\'' .
-            ' data-title=\'' . $escapedEnglishTranslation . ' (en -> ' . $locale .  ')\'>' .
+            ' data-title=\'' . $escapedEnglishTranslation . ' (' . $basicLocale . ' -> ' . $locale .  ')\'>' .
             $translation . '</span>';
     }
 

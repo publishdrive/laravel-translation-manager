@@ -56,6 +56,11 @@ return array(
         // ...
     ),
 
+    /**
+     * Basic language used by translator.
+     */
+    'basic_lang' => 'en',
+
 	/**
 	 * Export translations with keys output alphabetically.
 	 */
