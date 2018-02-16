@@ -77,6 +77,11 @@ return array(
 	'live_translation_enabled' => false,
 
 	/**
+	 * Position of live translation popup.
+	 */
+	'popup_placement' => 'top',
+
+	/**
 	 * Define who and when can manage module.
 	 * 
 	 * @return bool

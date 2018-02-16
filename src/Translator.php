@@ -89,6 +89,7 @@ class Translator extends LaravelTranslator
             ' data-url=\'' . route('translation-manager.update') . '\'' .
             ' data-name=\'' . $locale . '|' . $key . '\'' .
             ' data-type=\'textarea\'' .
+            ' data-placement="'. config('translation-manager.popup_placement') .'"' .
             ' data-pk=\'dummy\'' .
             ' data-value=\'' . $escapedCurrentTranslation . '\'' .
             ' data-title=\'' . $escapedEnglishTranslation . ' (' . $basicLocale . ' -> ' . $locale .  ')\'>' .
