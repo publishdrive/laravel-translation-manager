@@ -269,6 +269,53 @@ In your layout view add this scripts and style (see Layout customization section
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 ```
 
+If you want to change all links into non-links, add this little script:
+
+```
+<script>
+    $('.editable').parent('a').replaceWith(function () {
+            return $('<div/>', {
+                html: this.innerHTML
+            });
+        }
+    );
+</script>
+```
+
+Last step is to add this JS file:
+
+```
+jQuery(document).ready(function($){
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            settings.data += "&_token=" + $(':hidden[name="_token"]').val();
+        }
+    });
+
+    $('.editable').editable().on('hidden', function(e, reason){
+        var locale = $(this).data('locale');
+        if(reason === 'save'){
+            $(this).removeClass('status-0').addClass('status-1');
+        }
+        if(reason === 'save' || reason === 'nochange') {
+            var $next = $(this).closest('tr').next().find('.editable.locale-'+locale);
+            setTimeout(function() {
+                $next.editable('show');
+            }, 300);
+        }
+    });
+
+    $(document).on('click', 'a', function(event) {
+        if (event.target.localName !== 'a' && event.target.className.indexOf('editable-submit') !== -1) {
+            event.preventDefault();
+            return false;
+        }
+    });
+});
+
+```
+
 And now you are able to use `transEditable` helper and when live editing is active (checked through `isLiveTranslationEnabled`), user is able to click on text, popup will show and text can be changed. Saving changes will cause saving to the database and exporting this text to translation file. If live editing is not active, user will see standard text.
 
 You can use this helper like this:
@@ -281,6 +328,11 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 
 Changelog
 ---------
+
+0.4.3
+
+* New configurations (popup placement and basic language)
+* Update documentation about necessary JS scripts
 
 0.4.0
 
