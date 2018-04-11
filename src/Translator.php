@@ -92,7 +92,7 @@ class Translator extends LaravelTranslator
             ' data-placement="'. config('translation-manager.popup_placement') .'"' .
             ' data-pk=\'dummy\'' .
             ' data-value=\'' . $escapedCurrentTranslation . '\'' .
-            ' data-title=\'' . $escapedEnglishTranslation . ' (' . $basicLocale . ' -> ' . $locale .  ')\'>' .
+            ' data-title=\'' . $escapedBasicTranslation . ' (' . $basicLocale . ' -> ' . $locale .  ')\'>' .
             $translation . '</span>';
     }
 

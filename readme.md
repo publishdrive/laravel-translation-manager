@@ -329,6 +329,9 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 Changelog
 ---------
 
+0.4.4
+* Fix translation title popup
+
 0.4.3
 
 * New configurations (popup placement and basic language)
