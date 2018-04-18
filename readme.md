@@ -329,6 +329,9 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 Changelog
 ---------
 
+0.4.5
+* Laravel 5.6 support
+
 0.4.4
 * Fix translation title popup
 
