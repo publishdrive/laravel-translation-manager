@@ -101,7 +101,7 @@ Configuration
 | highlight_locale_marked  | Highlight lines with locale marked as not translated.                   | false                                                                                                                |
 | live_translation_enabled | Enable live translation of content.                                     | false                                                                                                                |
 | popup_placement | Position of live translation popup.                                     | top                                                                                                              |
-| permissions              | Define whow and when can edit translations.                             | function () {return env('APP_ENV') == 'local'; }                                                                     |
+| permissions              | Define whow and when can edit translations.                             |  env('APP_ENV') == 'local'                                                                   |
 
 
 Commands
@@ -328,6 +328,9 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 
 Changelog
 ---------
+
+0.4.6
+* remove closures in config file
 
 0.4.5
 * Laravel 5.6 support
