@@ -329,7 +329,7 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 Changelog
 ---------
 
-0.4.6
+0.4.7
 * remove closures in config file
 
 0.4.5
