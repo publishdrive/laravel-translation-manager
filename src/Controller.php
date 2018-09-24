@@ -108,7 +108,7 @@ class Controller extends BaseController
 
     public function postFind()
     {
-        $this->service->findTranslations();
+        $this->service->find();
 
         return [
             'success' => true,
