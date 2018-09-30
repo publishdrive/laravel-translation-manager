@@ -80,7 +80,7 @@ Configuration
 | highlight_locale_marked  | Highlight lines with locale marked as not translated.                   | false                                                                                                                |
 | live_translation_enabled | Enable live translation of content.                                     | false                                                                                                                |
 | popup_placement | Position of live translation popup.                                     | top                                                                                                              |
-| permissions              | Define whow and when can edit translations.                             | function () {return env('APP_ENV') == 'local'; }                                                                     |
+| permissions              | Define whow and when can edit translations.                             |  env('APP_ENV') == 'local'                                                                   |
 
 
 Commands
@@ -308,8 +308,17 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 Changelog
 ---------
 
-0.5.0
+0.6.0
 * No STRICT_MODE needed anymore
+
+0.5.1
+* Fix searching translations
+
+0.5.0
+* Change the views path
+
+0.4.7
+* remove closures in config file
 
 0.4.5
 * Laravel 5.6 support
@@ -318,7 +327,6 @@ Changelog
 * Fix translation title popup
 
 0.4.3
-
 * New configurations (popup placement and basic language)
 * Update documentation about necessary JS scripts
 

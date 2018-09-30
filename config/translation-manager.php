@@ -86,11 +86,6 @@ return array(
 	 * 
 	 * @return bool
 	 */
-	'permissions' => function () {
-		if(env('APP_ENV') == 'local')
-            return true;
-
-        return false;
-	},
+	'permissions' => env('APP_ENV') == 'local',
 
 );
