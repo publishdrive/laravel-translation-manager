@@ -28,7 +28,7 @@ class Service
 
     public function getGroups() 
     {
-        $groups = Translation::groupBy('group');
+        $groups = Translation::select('group');
         $excludedGroups = $this->manager->getConfig('exclude_groups');
         if($excludedGroups) {
             $groups->whereNotIn('group', $excludedGroups);
@@ -68,13 +68,13 @@ class Service
         $locale = config('app.locale');
 
         $notPublished = Translation::where('status', Translation::STATUS_CHANGED)
-            ->groupBy('group')
+            ->select('group')
             ->get()
             ->pluck('group')
             ->all();
 
         $empty = Translation::whereNull('value')
-            ->groupBy('group')
+            ->select('group')
             ->get()
             ->pluck('group')
             ->all();
@@ -83,7 +83,7 @@ class Service
         if(config('translation-manager.highlight_locale_marked'))
             $notTranslated = Translation::where('value', 'like binary', '%'. strtoupper($locale))
                 ->where('locale', $locale)
-                ->groupBy('group')
+                ->select('group')
                 ->get()
                 ->pluck('group')
                 ->all();

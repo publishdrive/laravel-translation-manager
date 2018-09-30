@@ -46,27 +46,6 @@ Remember to launch migration:
     php artisan migrate
 ```
 
-Moreover, you have to disable `ONLY_FULL_GROUP_ID` strict mode for database connection. There are two ways:
-
-```php
-    'mysql' => [
-        // ...
-        'strict' => false,
-    ],
-```
-
-or
-
-```php
-    'mysql' => [
-        // ...
-        'modes' => [
-            'NO_ZERO_DATE',
-            // you can specify what you want, without ONLY_FULL_GROUP_ID
-        ],
-    ],
-```
-
 Workflow
 ------------
 
@@ -328,6 +307,9 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 
 Changelog
 ---------
+
+0.5.0
+* No STRICT_MODE needed anymore
 
 0.4.5
 * Laravel 5.6 support
