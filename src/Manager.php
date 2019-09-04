@@ -67,7 +67,7 @@ class Manager
                 if (!$translations || !is_array($translations))
                     continue;
 
-                foreach(Array::dot($translations) as $key => $value) {
+                foreach(Arr::dot($translations) as $key => $value) {
                    if(is_array($value)) // process only string values
                         continue;
                     
@@ -194,7 +194,7 @@ class Manager
     {
         $array = array();
         foreach($translations as $translation) {
-            Array::set(
+            Arr::set(
                 $array[$translation->locale][$translation->group], 
                 $translation->key, 
                 $translation->value
