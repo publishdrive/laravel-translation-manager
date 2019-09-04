@@ -12,7 +12,7 @@ Add the following line to the `require` section of your Laravel webapp's `compos
 
 ```javascript
     "require": {
-        "highsolutions/laravel-translation-manager": "0.4.x"
+        "highsolutions/laravel-translation-manager": "^1.0"
     }
 ```
 
@@ -307,6 +307,9 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 
 Changelog
 ---------
+
+1.0.0
+* Support Laravel 6.0
 
 0.6.0
 * No STRICT_MODE needed anymore

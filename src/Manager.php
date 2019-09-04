@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\Finder;
+use Illuminate\Support\Arr;
 
 class Manager
 {
@@ -66,7 +67,7 @@ class Manager
                 if (!$translations || !is_array($translations))
                     continue;
 
-                foreach(array_dot($translations) as $key => $value) {
+                foreach(Array::dot($translations) as $key => $value) {
                    if(is_array($value)) // process only string values
                         continue;
                     
@@ -193,7 +194,7 @@ class Manager
     {
         $array = array();
         foreach($translations as $translation) {
-            array_set(
+            Array::set(
                 $array[$translation->locale][$translation->group], 
                 $translation->key, 
                 $translation->value
