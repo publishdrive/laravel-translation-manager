@@ -11,12 +11,7 @@
         {
             "name": "HighSolutions",
             "email": "adam@highsolutions.pl"
-        },
-        {
-            "name": "tms1987",
-            "email": "mail@thomasspaeth.eu"
         }
-
     ],
     "require": {
         "php": ">=5.4.0",
