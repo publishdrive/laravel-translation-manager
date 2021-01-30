@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace HighSolutions\TranslationManager\Console;
 
@@ -6,7 +6,7 @@ use HighSolutions\TranslationManager\Manager;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
-class FindCommand extends Command 
+class FindCommand extends Command
 {
 
     /**
@@ -28,6 +28,7 @@ class FindCommand extends Command
 
     public function __construct(Manager $manager)
     {
+        $this->authorize('administrate');
         $this->manager = $manager;
         parent::__construct();
     }
