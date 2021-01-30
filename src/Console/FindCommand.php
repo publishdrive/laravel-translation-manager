@@ -28,7 +28,6 @@ class FindCommand extends Command
 
     public function __construct(Manager $manager)
     {
-        $this->authorize('administrate');
         $this->manager = $manager;
         parent::__construct();
     }
