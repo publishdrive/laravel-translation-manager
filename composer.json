@@ -1,5 +1,5 @@
 {
-    "name": "highsolutions/laravel-translation-manager",
+    "name": "tms1987/laravel-translation-manager",
     "description": "Manage Laravel Translations",
     "keywords": ["laravel", "translations", "translator", "language"],
     "license": "MIT",
@@ -7,11 +7,16 @@
         {
             "name": "Barry vd. Heuvel",
             "email": "barryvdh@gmail.com"
-        },        
+        },
         {
             "name": "HighSolutions",
             "email": "adam@highsolutions.pl"
+        },
+        {
+            "name": "tms1987",
+            "email": "mail@thomasspaeth.eu"
         }
+
     ],
     "require": {
         "php": ">=5.4.0",
@@ -31,7 +36,7 @@
             "providers": [
                 "HighSolutions\\TranslationManager\\ManagerServiceProvider",
                 "HighSolutions\\TranslationManager\\TranslationServiceProvider"
-            ]            
+            ]
         }
     },
     "minimum-stability": "stable"
