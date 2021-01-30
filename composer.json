@@ -1,5 +1,5 @@
 {
-    "name": "tms1987/laravel-translation-manager",
+    "name": "highsolutions/laravel-translation-manager",
     "description": "Manage Laravel Translations",
     "keywords": ["laravel", "translations", "translator", "language"],
     "license": "MIT",
