@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace HighSolutions\TranslationManager;
 
@@ -70,7 +70,7 @@ class Manager
                 foreach(Arr::dot($translations) as $key => $value) {
                    if(is_array($value)) // process only string values
                         continue;
-                    
+
                     $value = (string) $value;
                     $translation = Translation::firstOrNew([
                         'locale' => $locale,
@@ -100,7 +100,7 @@ class Manager
     {
         $path = $path ?: base_path();
         $keys = array();
-        $functions =  array('trans', 'trans_choice', 'Lang::get', 'Lang::choice', 'Lang::trans', 'Lang::transChoice', '@lang', '@choice', 'transEditable');
+        $functions =  array('trans', 'trans_choice', 'Lang::get', 'Lang::choice', 'Lang::trans', 'Lang::transChoice', '@lang', '@choice', 'transEditable','__');
         $pattern =                              // See http://regexr.com/392hu
             "[^\w|>]".                          // Must not have an alphanum or _ or > before real method
             "(".implode('|', $functions) .")".  // Must start with one of the functions
@@ -195,8 +195,8 @@ class Manager
         $array = array();
         foreach($translations as $translation) {
             Arr::set(
-                $array[$translation->locale][$translation->group], 
-                $translation->key, 
+                $array[$translation->locale][$translation->group],
+                $translation->key,
                 $translation->value
             );
         }
@@ -210,7 +210,7 @@ class Manager
 
         return $this->config[$key];
     }
-    
+
     public function loadLocales()
     {
         $locales = Translation::groupBy('locale')
@@ -218,7 +218,7 @@ class Manager
             ->get()
             ->pluck('locale')
             ->all();
-        
+
         $locales = array_merge([config('app.locale')], $locales);
         return array_unique($locales);
     }
@@ -250,12 +250,12 @@ class Manager
             $toCompare = $langOriginal->where('group', $lang->group)
                 ->where('key', $lang->key)
                 ->first();
-            
+
             return $toCompare != null && $toCompare->value == $lang->value;
         })->each(function ($lang) use ($suffix) {
             if(substr($lang->value, -2) == $suffix)
                 return;
-            
+
             $lang->update([
                 'value' => $lang->value . ' '. $suffix,
             ]);
