@@ -1,3 +1,4 @@
+@can('administrate')
 <form class="form-import pull-left" method="POST" action="{{ route('translation-manager.import') }}" role="form" style="margin-right: 20px">
 	@if(sizeof($groups) == 0)
 	<a href="#">
@@ -30,6 +31,7 @@
 		</ul>
 	</div>
 </form>
+@endcan
 <form class="form-search pull-left" method="POST" action="{{ route('translation-manager.find') }}" role="form">
 	{{ csrf_field() }}
 	<button type="submit" class="btn btn-primary" title="{{ trans('translation-manager::panel.actions.find') }}"><i class="glyphicon glyphicon-search"></i></button>

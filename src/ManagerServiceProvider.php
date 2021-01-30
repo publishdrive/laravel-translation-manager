@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace HighSolutions\TranslationManager;
 
@@ -29,12 +29,12 @@ class ManagerServiceProvider extends ServiceProvider {
     {
         $this->_basicRegister();
 
-        $this->_commandsRegister();        
+        $this->_commandsRegister();
 
-        $this->_managerRegister();    
+        $this->_managerRegister();
     }
 
-    private function _basicRegister() 
+    private function _basicRegister()
     {
         $configPath = __DIR__ . '/../config/translation-manager.php';
         $this->mergeConfigFrom($configPath, 'translation-manager');
@@ -43,7 +43,7 @@ class ManagerServiceProvider extends ServiceProvider {
         ], 'config');
     }
 
-    private function _commandsRegister() 
+    private function _commandsRegister()
     {
         foreach($this->commandsList() as $name => $class) {
             $this->initCommand($name, $class);
@@ -72,7 +72,7 @@ class ManagerServiceProvider extends ServiceProvider {
         $this->commands("command.translation-manager.{$name}");
     }
 
-    private function _managerRegister() 
+    private function _managerRegister()
     {
         $this->app->singleton('translation-manager', function($app) {
             return $app->make(Manager::class);
@@ -114,13 +114,13 @@ class ManagerServiceProvider extends ServiceProvider {
     {
         $translationPath = __DIR__.'/../resources/lang';
         $this->loadTranslationsFrom($translationPath, 'translation-manager');
-        
+
         $this->publishes([
             $translationPath => resource_path('lang/vendor/translation-manager'),
         ], 'translations');
     }
 
-    public function loadRoutes($router) {        
+    public function loadRoutes($router) {
         $config = $this->routeConfig();
 
         $router->group($config, function($router) {
@@ -129,9 +129,9 @@ class ManagerServiceProvider extends ServiceProvider {
             $router->post('/add/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postAdd')->name('translation-manager.add');
             $router->post('/edit/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postEdit')->name('translation-manager.edit');
             $router->post('/delete/{key}/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postDelete')->name('translation-manager.delete');
-            $router->post('/publish/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postPublish')->name('translation-manager.publish');
-            $router->post('/import', 'Controller@postImport')->name('translation-manager.import');
-            $router->post('/clean', 'Controller@postClean')->name('translation-manager.clean');
+            $router->post('/publish/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postPublish')->middleware('can:administrate')->name('translation-manager.publish');
+            $router->post('/import', 'Controller@postImport')->middleware('can:administrate')->name('translation-manager.import');
+            $router->post('/clean', 'Controller@postClean')->middleware('can:administrate')->name('translation-manager.clean');
             $router->post('/find', 'Controller@postFind')->name('translation-manager.find');
 
             $router->post('custom-update', 'Controller@postEditAndExport')->name('translation-manager.update');
