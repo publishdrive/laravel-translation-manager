@@ -10,7 +10,7 @@ Add the following line to the `require` section of your Laravel webapp's `compos
 
 ```javascript
     "require": {
-        "rendesadam/laravel-translation-manager": "^1.0"
+        "publishdrive/laravel-translation-manager": "^1.0"
     }
 ```
 
