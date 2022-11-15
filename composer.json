@@ -1,5 +1,5 @@
 {
-    "name": "highsolutions/laravel-translation-manager",
+    "name": "publishdrive/laravel-translation-manager",
     "description": "Manage Laravel Translations",
     "keywords": ["laravel", "translations", "translator", "language"],
     "license": "MIT",
@@ -11,13 +11,16 @@
         {
             "name": "HighSolutions",
             "email": "adam@highsolutions.pl"
+        },{
+            "name": "A. Rendes",
+            "email": "adam@publishdrive.com"
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/console": "5.*|^6.0|^7.0|^8.0|^9.0",
-        "illuminate/support": "5.*|^6.0|^7.0|^8.0|^9.0",
-        "symfony/finder": "*"
+        "php": ">=7.2.5",
+        "illuminate/console": "^7.0|^8.0|^9.0",
+        "illuminate/support": "^7.0|^8.0|^9.0",
+        "symfony/finder": "^5.0|^6.0"
     },
     "autoload": {
         "psr-4": {
@@ -26,7 +29,7 @@
     },
     "extra": {
         "component": "package",
-        "frameworks": ["Laravel 5.7", "Laravel 5.8", "Laravel 6.x", "Laravel 7.x", "Laravel 8.x"],
+        "frameworks": ["Laravel 5.7", "Laravel 5.8", "Laravel 6.x", "Laravel 7.x", "Laravel 8.x", "Laravel 9.x"],
         "laravel": {
             "providers": [
                 "HighSolutions\\TranslationManager\\ManagerServiceProvider",
@@ -34,5 +37,9 @@
             ]
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "replace": {
+        "highsolutions/laravel-translation-manager": "1.1.0"
+    }
+}
 }

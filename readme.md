@@ -3,8 +3,6 @@ Laravel Translation Manager
 
 Easy management of translations in Laravel.
 
-![Laravel-Translation-Manager by HighSolutions](https://raw.githubusercontent.com/highsolutions/laravel-translation-manager/master/intro.jpg)
-
 Installation
 ------------
 
@@ -12,7 +10,7 @@ Add the following line to the `require` section of your Laravel webapp's `compos
 
 ```javascript
     "require": {
-        "highsolutions/laravel-translation-manager": "^1.0"
+        "rendesadam/laravel-translation-manager": "^1.0"
     }
 ```
 
@@ -308,6 +306,9 @@ Do not use this inside of non-clickable elements (title attribute, alt attribute
 Changelog
 ---------
 
+1.1.1
+* Support Laravel 9.x
+
 1.1.0
 * Support Laravel 7.x and 8.x
 
@@ -373,6 +374,6 @@ Roadmap
 Credits
 -------
 
-This package was originally created by [Barry vd. Heuvel](https://github.com/barryvdh) and is available here: [laravel-feed](https://github.com/barryvdh/laravel-translation-manager).
-
-Currently is developed by [HighSolutions](http://highsolutions.pl), software house from Poland in love in Laravel.
+This package was
+* originally created by [Barry vd. Heuvel](https://github.com/barryvdh) and is available here: [laravel-feed](https://github.com/barryvdh/laravel-translation-manager).
+* updated by [HighSolutions](https://github.com/highsolutions/laravel-translation-manager) and [tms1987](https://github.com/tms1987/laravel-translation-manager).
