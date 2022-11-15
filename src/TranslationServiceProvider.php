@@ -25,10 +25,6 @@ class TranslationServiceProvider extends BaseTranslationServiceProvider
 
             $trans->setFallback($app['config']['app.fallback_locale']);
 
-            if($app->bound('translation-manager')){
-                $trans->setTranslationManager($app['translation-manager']);
-            }
-
             return $trans;
         });
     }

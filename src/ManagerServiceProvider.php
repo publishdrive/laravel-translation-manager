@@ -129,9 +129,9 @@ class ManagerServiceProvider extends ServiceProvider {
             $router->post('/add/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postAdd')->name('translation-manager.add');
             $router->post('/edit/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postEdit')->name('translation-manager.edit');
             $router->post('/delete/{key}/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postDelete')->name('translation-manager.delete');
-            $router->post('/publish/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postPublish')->middleware('can:administrate')->name('translation-manager.publish');
-            $router->post('/import', 'Controller@postImport')->middleware('can:administrate')->name('translation-manager.import');
-            $router->post('/clean', 'Controller@postClean')->middleware('can:administrate')->name('translation-manager.clean');
+            $router->post('/publish/{group}/{group2?}/{group3?}/{group4?}/{group5?}', 'Controller@postPublish')->name('translation-manager.publish');
+            $router->post('/import', 'Controller@postImport')->name('translation-manager.import');
+            $router->post('/clean', 'Controller@postClean')->name('translation-manager.clean');
             $router->post('/find', 'Controller@postFind')->name('translation-manager.find');
 
             $router->post('custom-update', 'Controller@postEditAndExport')->name('translation-manager.update');
